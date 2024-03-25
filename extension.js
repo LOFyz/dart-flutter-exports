@@ -24,9 +24,13 @@ function activate(context) {
     context.subscriptions.push(disposable);
 }
 
-async function createExporterFilesRecursively(folder) {
+async function createExporterFilesRecursively(
+  folder,
+  suffix = '_module',
+  prefix = '',
+) {
     const folderName = path.basename(folder);
-    const filePath = path.join(folder, `${folderName}.dart`);
+  const filePath = path.join(folder, `${prefix}${folderName}${suffix}.dart`);
 
     if (shouldSkip(folderName)) {
         return;
