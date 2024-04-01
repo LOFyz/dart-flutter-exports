@@ -8,7 +8,10 @@ const extensionLink =
 const skipFolders = ['l10n']; // folders to skip
 const skipFiles = ['.g.dart']; // file patterns to skip
 
-let userChoice = null; // Variable to store user's choice for the current operation
+let userChoice =
+  vscode.workspace
+    .getConfiguration('dart-flutter-exports')
+    .get('alwaysOverwrite') || null;
 
 function activate(context) {
   let disposable = vscode.commands.registerCommand(
@@ -51,13 +54,34 @@ async function createExporterFilesRecursively(
 
     if (isLikelyExportFile) {
       // Show a confirmation dialog for overwrite, skip, or overwrite all
-      const choices = ['Overwrite', 'Skip', 'Overwrite All'];
+      const choices = [
+        'Overwrite',
+        'Skip',
+        'Overwrite All',
+        'Always Overwrite',
+      ];
+
+      if (
+        vscode.workspace
+          .getConfiguration('dart-flutter-exports')
+          .get('alwaysOverwrite')
+      ) {
+        userChoice = 'Overwrite';
+      }
+
       const overwriteChoice = userChoice
         ? choices[2]
         : await vscode.window.showInformationMessage(
             `Exporter file '${folderName}.dart' already exists in ${folder}. Do you want to overwrite it?`,
             ...choices,
           );
+
+      if (overwriteChoice === 'Always Overwrite') {
+        vscode.workspace
+          .getConfiguration('dart-flutter-exports')
+          .update('alwaysOverwrite', true, vscode.ConfigurationTarget.Global);
+        userChoice = 'Overwrite';
+      }
 
       if (overwriteChoice === 'Overwrite All') {
         userChoice = 'Overwrite';

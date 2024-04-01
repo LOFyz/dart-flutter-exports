@@ -18,6 +18,16 @@
   ],
   "main": "./extension.js",
   "contributes": {
+    "configuration": {
+      "title": "Always overwrite",
+      "properties": {
+        "dart-flutter-exports.alwaysOverwrite": {
+          "type": "boolean",
+          "default": false,
+          "description": "Always overwrite existing files"
+        }
+      }
+    },
     "commands": [
       {
         "command": "dart-flutter-exports.createExporterFiles",
