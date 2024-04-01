@@ -124,7 +124,9 @@ function generateFileContent(folderName, subfolders, files) {
   const subfolderExports = subfolders
     .map((subfolder) => {
       const relativePath = path.relative(folderName, subfolder);
-      return `export '${relativePath}/${path.basename(subfolder)}.dart';`;
+      return `export '${relativePath}/${path.basename(
+        subfolder,
+      )}_module.dart';`;
     })
     .join('\n');
 
