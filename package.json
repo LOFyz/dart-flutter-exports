@@ -1,6 +1,6 @@
 {
-  "name": "dart-flutter-exports-suffix",
-  "displayName": "Dart & Flutter Exports (_module)",
+  "name": "dart-flutter-exports-suffix-module",
+  "displayName": "Dart & Flutter Exports with suffix (_module)",
   "description": "Creates export files for Dart & Flutter folders (All rights reserved to elmsec, this is just an adaptation to my teams needs)",
   "version": "1.0.2",
   "publisher": "LOFyz",
